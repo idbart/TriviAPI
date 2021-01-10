@@ -1,0 +1,24 @@
+{
+  "name": "triviapi",
+  "version": "1.0.0",
+  "description": "A community driven API for getting and submitting trivia questions about any topic.",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idbart/TriviAPI.git"
+  },
+  "author": "Isaac Bartlett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/idbart/TriviAPI/issues"
+  },
+  "homepage": "https://github.com/idbart/TriviAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
