@@ -1,3 +1,4 @@
+const DataAccess = require('../scripts/DataAccess');
 
 module.exports = function(app) {
 
@@ -7,16 +8,10 @@ module.exports = function(app) {
 	});
 
 	// for when the user asks for a question
-	app.get('/question', (request, response) => {
-
-		if(request.query.id)
-		{
-			
-		}
-		else
-		{
-
-		}
+	app.get('/question', async (request, response) => {
+		
+		var question = await DataAccess.getRandomQuestion();
+		response.json(question ? question : { error: "no data to send" });
 	});
 
 	// for when the user asks for a question of a specific category

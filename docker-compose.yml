@@ -1,0 +1,18 @@
+version: "3.3"
+
+services: 
+  app:
+    build: 
+      context: ./
+      dockerfile: DockerFile
+    ports: 
+      - 80:80
+    
+  triviapi_db:
+    image: mongo:4.4.3
+    volumes: 
+      - triviapi-data:/data/db
+
+
+volumes: 
+  triviapi-data:

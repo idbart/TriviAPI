@@ -7,7 +7,7 @@ const mainController = require('./controllers/MainController');
 var app = express();
 
 // setup body parsing middleware
-express.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // call all of the controllers
 mainController(app);

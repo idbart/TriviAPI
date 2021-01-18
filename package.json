@@ -4,7 +4,8 @@
   "description": "A community driven API for getting and submitting trivia questions about any topic.",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+	"test": "nodemon app.js",
+	"start": "node app.js"
   },
   "repository": {
     "type": "git",
