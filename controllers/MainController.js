@@ -10,17 +10,21 @@ module.exports = function(app) {
 	// for when the user asks for a question
 	app.get('/question', async (request, response) => {
 		
+		// get a random question and send it in JSON format
 		var question = await DataAccess.getRandomQuestion();
-		response.json(question ? question : { error: "no data to send" });
+		response.json(question);
 	});
 
 	// for when the user asks for a question of a specific category
-	app.get('/question/:category', (request, response) => {
+	app.get('/question/:category', async (request, response) => {
 
+		// get a random question in the given category and send it in JSON format
+		var question = await DataAccess.getRandomQuestion(request.query.category);
+		response.json(question);
 	});
 
 	// for when the user posts a new question
 	app.post('/question', (request, response) => {
-
+		
 	});
 };
