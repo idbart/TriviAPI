@@ -19,7 +19,7 @@ module.exports = function(app) {
 	app.get('/question/:category', async (request, response) => {
 
 		// get a random question in the given category and send it in JSON format
-		var question = await DataAccess.getRandomQuestion(request.query.category);
+		var question = await DataAccess.getRandomQuestion(request.params.category);
 		response.json(question);
 	});
 
