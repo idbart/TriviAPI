@@ -1,8 +1,40 @@
 const DBConnection = require('./classes/DBConnection');
 const TriviaQuestion = require('../models/TriviaQuestion');
+const Parsing = require('./Parsing');
 
-module.exports.saveQuestion = function(question) {
-	
+module.exports.saveQuestion = async function(question) {
+
+	var conn = new DBConnection();
+
+	return new Promise(async function(resolve, reject) {
+
+		// verify that the question object contains the proper fields 
+		if(Parsing.validateQuestion(question))
+		{
+			try
+			{
+				// get a connection to the db and the collection
+				var db = await conn.getConn();
+				var collection = db.collection('questions'); 
+
+				await collection.insertOne({ 
+					category: question.category, 
+					question: question.question, 
+					answer: question.answer, 
+					source: question.source 
+				});
+				resolve();
+			}
+			catch(e)
+			{
+				reject(e);
+			}
+		}
+		else
+		{
+			reject("question not properly formated");
+		}
+	});
 };
 
 module.exports.getQuestion = async function(id) {

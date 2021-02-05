@@ -24,7 +24,18 @@ module.exports = function(app) {
 	});
 
 	// for when the user posts a new question
-	app.post('/question', (request, response) => {
-		
+	app.post('/question', async (request, response) => {
+
+		// save a new question in the db with the data in the body of the request
+		try
+		{
+			await DataAccess.saveQuestion(request.body);
+			response.sendStatus(201);
+		}
+		// if there is an error saving the new question, send a 400
+		catch(e)
+		{
+			response.sendStatus(400);
+		}
 	});
 };
