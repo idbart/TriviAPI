@@ -1,5 +1,6 @@
 const DBConnection = require('./classes/DBConnection');
 const TriviaQuestion = require('../models/TriviaQuestion');
+const ObjectID = require('mongodb').ObjectID;
 const Parsing = require('./Parsing');
 
 module.exports.saveQuestion = async function(question) {
@@ -17,13 +18,13 @@ module.exports.saveQuestion = async function(question) {
 				var db = await conn.getConn();
 				var collection = db.collection('questions'); 
 
-				await collection.insertOne({ 
+				var result = await collection.insertOne({ 
 					category: question.category, 
 					question: question.question, 
 					answer: question.answer, 
 					source: question.source 
 				});
-				resolve();
+				resolve(result.ops[0]);
 			}
 			catch(e)
 			{
@@ -50,7 +51,7 @@ module.exports.getQuestion = async function(id) {
 				var collection = db.collection('questions');
 
 				// query the db for a document by the provided id and resolve the promise with it
-				var data = await collection.findOne({ _id: id });
+				var data = await collection.findOne({ "_id": new ObjectID(id) });
 				resolve(data);
 			}
 			catch(e)
@@ -101,7 +102,8 @@ module.exports.getRandomQuestion = function(category) {
 				{
 					resolve(await cursor.next());
 				}
-
+				
+				await cursor.close();
 				conn.close();
 			});
 		}
